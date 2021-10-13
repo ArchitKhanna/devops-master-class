@@ -19,5 +19,3 @@ resource "aws_s3_bucket" "my_s3_bucket" {
     }
 
 }
-# ID: AKIA3ABTNARGKEPX7EET
-# Pass: t3XOgJIPiYI4cQpZWyRkklbLtUaEMbtMDPrtCxqa
