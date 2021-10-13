@@ -8,14 +8,14 @@ terraform {
 }
 
 provider "aws" {
+
   region = "eu-west-1"
+
 }
 
-resource "aws_s3_bucket" "my_s3_bucket" {
+resource "aws_iam_user" "tf_iam_users" {
 
-    bucket = "archit-s3-bucket-02"
-    versioning {
-      enabled = true
-    }
+  count = 3
+  name  = "my_tf_user_${count.index}"
 
 }
