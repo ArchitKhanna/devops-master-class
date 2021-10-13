@@ -1,3 +1,3 @@
 variable "names" {
-  default = ["John", "Jane", "Jack"]
+  default = ["Julie", "Jimothy", "John", "Jane", "Jack"]
 }
