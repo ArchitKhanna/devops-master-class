@@ -16,6 +16,6 @@ provider "aws" {
 resource "aws_iam_user" "tf_iam_users" {
 
   count = 3
-  name  = "my_tf_user_${count.index}"
+  name  = "${var.iam_user_name_prefix}_${count.index}"
 
 }
