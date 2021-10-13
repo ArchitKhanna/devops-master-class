@@ -15,9 +15,11 @@ provider "aws" {
 
 resource "aws_iam_user" "tf_iam_users" {
 
-  #count = length(var.names)
-  #name  = var.names[count.index]
-  for_each = toset(var.names)
-  name     = each.value
+  for_each = var.usermaps
+  name     = each.key
+  tags = {
+    "country" : each.value.country,
+    "department" : each.value.department
+  }
 
 }
