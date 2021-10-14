@@ -13,9 +13,17 @@ provider "aws" {
 
 }
 
+resource "aws_default_vpc" "default" {
+
+}
+
+data "aws_subnet_ids" "default_subnets" {
+  vpc_id = aws_default_vpc.default.id
+}
+
 resource "aws_security_group" "http_server_sg" {
   name   = "http_server_sg"
-  vpc_id = "vpc-0814e05fb6b5b40cc"
+  vpc_id = aws_default_vpc.default.id
 
   ingress {
     from_port   = 80
