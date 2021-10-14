@@ -1,0 +1,5 @@
+Region: eu-west-1
+AMI: ami-05cd35b907b4ffe77
+Instance: t2.micro
+VPC: vpc-0814e05fb6b5b40cc
+security group 

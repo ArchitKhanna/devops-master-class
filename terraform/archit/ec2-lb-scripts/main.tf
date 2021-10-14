@@ -21,7 +21,7 @@ data "aws_subnet_ids" "default_subnets" {
   vpc_id = aws_default_vpc.default.id
 }
 
-resource "aws_security_group" "elb_sg" {
+resource "aws_security_group" "http_server_sg" {
   name   = "http_server_sg"
   vpc_id = aws_default_vpc.default.id
 
@@ -51,32 +51,12 @@ resource "aws_security_group" "elb_sg" {
   }
 }
 
-resource "aws_elb" "elb" {
-  name            = "elb"
-  subnets         = data.aws_subnet_ids.default_subnets.ids
-  security_groups = [aws_security_group.elb_sg.id]
-  instances       = values(aws_instance.http_servers).*.id
-
-  listener {
-    instance_port     = 80
-    instance_protocol = "http"
-    lb_port           = 80
-    lb_protocol       = "http"
-  }
-}
-
-resource "aws_instance" "http_servers" {
+resource "aws_instance" "http_server" {
   ami                    = "ami-05cd35b907b4ffe77"
   key_name               = "default-ec2"
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.http_server_sg.id]
-  #subnet_id              = "subnet-00397b88dfe44d190"
-  for_each               = data.aws_subnet_ids.default_subnets.ids
-  subnet_id              = each.value
-
-  tags = {
-    "name" = "servers_${each.value}"
-  }
+  subnet_id              = "subnet-00397b88dfe44d190"
 
   connection {
     type        = "ssh"
